@@ -1,6 +1,6 @@
 # Weather ETL Pipeline
 
-A beginner-friendly end-to-end Data Engineering project that extracts real-time weather data from the Open-Meteo API, transforms and validates it using Python and Pandas, and loads it into PostgreSQL for SQL-based analysis.
+A end-to-end Data Engineering project that extracts real-time weather data from the Open-Meteo API, transforms and validates it using Python and Pandas, and loads it into PostgreSQL for SQL-based analysis.
 
 ---
 
