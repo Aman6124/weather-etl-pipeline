@@ -1,6 +1,10 @@
 # Weather ETL Pipeline
 
-A end-to-end Data Engineering project that extracts real-time weather data from the Open-Meteo API, transforms and validates it using Python and Pandas, and loads it into PostgreSQL for SQL-based analysis.
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+
+An end-to-end Data Engineering project that extracts real-time weather data from the Open-Meteo API, transforms and validates it using Python and Pandas, and loads it into PostgreSQL for SQL-based analysis.
 
 ---
 
@@ -157,7 +161,7 @@ CREATE TABLE IF NOT EXISTS weather (
 
 ## SQL Analysis
 
-The repository includes [`sql/analysis.sql`](file:///d:/Data%20engineer/projects/weather-etl-pipeline/sql/analysis.sql) containing analytical queries to extract insights from stored weather records.
+The repository includes [`sql/analysis.sql`](sql/analysis.sql) containing analytical queries to extract insights from stored weather records.
 
 ### Concepts Covered
 - Aggregate Functions (`COUNT`, `AVG`, `MIN`, `MAX`, `ROUND`)
@@ -178,7 +182,7 @@ The repository includes [`sql/analysis.sql`](file:///d:/Data%20engineer/projects
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/Aman6124/weather-etl-pipeline.git
 cd weather-etl-pipeline
 ```
 
@@ -194,6 +198,12 @@ venv\Scripts\activate.bat
 ```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 ### 3. Install Dependencies
@@ -215,8 +225,14 @@ psql -U postgres -d weather_db -f sql/create_table.sql
 
 ### 5. Environment Configuration
 Copy `.env.example` to create your local `.env` file:
-```bash
+**Windows (CMD or PowerShell):**
+```text
 copy .env.example .env
+```
+
+**macOS / Linux:**
+```bash
+cp .env.example .env
 ```
 
 Edit `.env` with your local PostgreSQL password and settings:
