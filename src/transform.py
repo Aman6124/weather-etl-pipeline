@@ -7,6 +7,7 @@ and save a clean CSV that is ready to load into PostgreSQL.
 """
 
 import json
+import math
 from datetime import datetime
 from pathlib import Path
 
@@ -142,15 +143,18 @@ def validate_weather_record(record: dict) -> None:
         if record.get(field) is None or pd.isna(record.get(field)):
             raise ValueError(f"Missing required field: {field}")
 
+    # Conversion alone accepts NaN and infinity, which are not valid readings.
+    for field in ("temperature", "humidity", "wind_speed"):
+        if not math.isfinite(float(record[field])):
+            raise ValueError(
+                f"Invalid {field} value: {record[field]}. Expected a finite number."
+            )
+
     humidity = float(record["humidity"])
     if humidity < 0 or humidity > 100:
         raise ValueError(
             f"Invalid humidity value: {humidity}. Expected a value between 0 and 100."
         )
-
-    # Basic numeric checks — ensures values can be converted cleanly
-    float(record["temperature"])
-    float(record["wind_speed"])
 
 
 def build_dataframe(record: dict) -> pd.DataFrame:
