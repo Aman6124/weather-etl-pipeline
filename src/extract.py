@@ -99,10 +99,19 @@ def save_raw_json(data: dict) -> Path:
     RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"weather_{timestamp}.json"
-    filepath = RAW_DATA_DIR / filename
+    suffix = 0
+    while True:
+        collision_suffix = f"_{suffix}" if suffix else ""
+        filepath = RAW_DATA_DIR / f"weather_{timestamp}{collision_suffix}.json"
+        try:
+            # Exclusive creation also protects snapshots from concurrent runs.
+            file = filepath.open("x", encoding="utf-8")
+        except FileExistsError:
+            suffix += 1
+            continue
+        break
 
-    with filepath.open("w", encoding="utf-8") as file:
+    with file:
         json.dump(data, file, indent=2)
 
     return filepath
