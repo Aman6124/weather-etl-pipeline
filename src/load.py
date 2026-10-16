@@ -105,10 +105,13 @@ def get_database_config() -> dict:
 
     for var_name in DB_ENV_VARS:
         value = os.getenv(var_name)
-        if value is None or value.strip() == "":
+        # Password whitespace is part of the credential, not formatting.
+        if value is not None and var_name != "DB_PASSWORD":
+            value = value.strip()
+        if value is None or value == "":
             missing_vars.append(var_name)
         else:
-            config[var_name.lower()] = value.strip()
+            config[var_name.lower()] = value
 
     if missing_vars:
         raise ValueError(
